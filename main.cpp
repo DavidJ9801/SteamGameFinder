@@ -88,7 +88,7 @@ int main() {
     }
     file.close();
 
-    cout << "Hash table built!!!!!!!!!" << endl;
+    cout << "Welcome to\n-----------------\nSteam Game Finder\n-----------------" << endl;
 
     string search;
     while (true) {
