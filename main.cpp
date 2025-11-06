@@ -61,7 +61,6 @@ public:
 int main() {
     HashTable games;
     map<string, int> games2;
-
     ifstream file("all_data.csv");
 
     if (!file.is_open()) {
@@ -76,30 +75,14 @@ int main() {
         stringstream ss(line);
         string name, ratingStr;
 
-        //skipping non-important data
-        getline(ss, name, ',');
-        getline(ss, name, ',');
-
-        //name = name of game
-        getline(ss, name, ',');
-
-        size_t start_index = line.find(",,");
-
-        if (start_index != string::npos)
-        {
-            size_t end_index = line.find(",", start_index + 2);
-            ratingStr = line.substr(start_index + 2, end_index - start_index - 2);
-        }
-
-        if (!ratingStr.empty())
-        {
+        if (getline(ss, name, ',') && getline(ss, ratingStr, ',')) {
+            if (ratingStr.empty()) continue;
             try {
                 int rating = stoi(ratingStr);
                 games.insert(name, rating);
                 games2.insert(make_pair(name, rating));
             } catch (...) {}
         }
-
     }
     file.close();
 
@@ -110,10 +93,6 @@ int main() {
         cout << "\nEnter a game name to search (or 'exit' to quit): ";
         getline(cin, search);
         if (search == "exit") break;
-
-
-        //HASH TABLE SEARCH
-        cout << "Using Hash Table:" << endl;
 
         int rating;
         auto start = chrono::high_resolution_clock::now();
@@ -129,7 +108,6 @@ int main() {
         }
 
         cout << "Search took " << time << " ns." << endl;
-
 
         //MAP SEARCH
         cout << "\nUsing Map/Red-Black Tree:" << endl;
