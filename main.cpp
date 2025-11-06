@@ -20,6 +20,8 @@ private:
 
     vector<list<Entry>> table;
 
+    //dbj2 hash function
+
     int hash(string key) {
         long h = 5381;
         for (char c : key) {
